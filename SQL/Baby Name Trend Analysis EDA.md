@@ -8,7 +8,7 @@ You can download the data [here](https://app.mavenanalytics.io/guided-projects/f
 I used SQL from Google BigQuery for exploritary data and since i cannot save the file because i use it for free, so i copy and paste it in notepad 😅.
 
 ## There are 3 main objective :
-1. Track changes in name popularity [go here](#first-objective-track-changes-in-name-popularity)
+1. Track changes in name popularity [go here](#first-objective--track-changes-in-name-popularity)
    - Find the overall most popular girl and boy names and show how they have changed in popularity rankings over the years
    - Find the names with the biggest jumps in popularity from the first year of the data set to the last year
 2. Compare popularity across decades [go here](##second-objective--compare-popularity-across-decades)
