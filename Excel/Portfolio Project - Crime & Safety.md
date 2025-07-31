@@ -24,7 +24,8 @@ Understanding the patterns and behavior of criminals. Finding out the insight of
 I used data from `Kaggle`. **[Download](https://www.kaggle.com/datasets/shamimhasan8/crime-and-safety-dataset)**
 
 
-Here is my `Excel` file **[Portfolio Project - Crime Safety.xlsx](https://github.com/user-attachments/files/21530926/Portfolio.Project.-.Crime.Safety.xlsx)**
+Here is my `Excel` file **[Portfolio Project - Crime Safety.xlsx](https://github.com/user-attachments/files/21531164/Portfolio.Project.-.Crime.Safety.xlsx)**
+
 
 
 ## Process Data
@@ -75,7 +76,8 @@ The downloaded dataset is in csv format, so I separated ',' with Text To Column.
 |---|---|---|---|
 |Count id in Value area, date(year) in Rows and crime_type in Columns with pivot table then create line chart based on the fields| Id | crime_type, date | Cases of robbery and domestic violence increased from late-mid July to early 2021. This was due to the absence of data from early 2021. Throughout 2021-2023, cases of robbery and domestic violence remained fairly stable at between 24 and 26 cases. Domestic violence cases increased drastically in 2024 with a total of 33 cases then it decreased drastically until mid-2025 with a total of 20 cases of robbery and domestic violence.
 
-<img width="600" height="900" alt="image" src="https://github.com/user-attachments/assets/166026dc-9c5c-4605-a824-aac429f662c5" />
+<img width="600" height="900" alt="image" src="https://github.com/user-attachments/assets/b6ff0d0b-8eeb-4807-9dfe-ed13d694b0d0" />
+
 
 ## Analysis Conclusion
 Over the past five years, a total of 1,000 crime cases were recorded. The trend shows a significant fluctuation, starting with 92 cases in late-mid 2020, peaking at 215 cases in 2022, and then decreasing to 107 cases by the end of July 2025.
