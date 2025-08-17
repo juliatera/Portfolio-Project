@@ -1,0 +1,130 @@
+---
+title: "Restaurant Sales Data Cleaning"
+output: html_notebook
+by : Juliatera Tambunan
+date : 2025/08/17
+---
+
+# About Project
+
+This is a Data Cleaning Project using Restaurant Sales Data from **Kaggle.** Download file [Here](https://www.kaggle.com/datasets/ahmedmohamed2003/restaurant-sales-dirty-data-for-cleaning-training "Download").
+
+There are a couple steps in this cleaning process. Start from Here :
+
+#### Load Library
+
+I'm using Tidyverse package in this project 'cause i want to keep it simple and easy to read 😀
+
+```{r}
+library(tidyverse)
+```
+
+#### Import Data
+
+Importing CSV file to RStudio
+
+```{r}
+sales_df <- read.csv("C:\\Users\\djoel\\Documents\\Data Analisis Bootcamp\\Project\\Data Cleaning\\R\\restaurant_sales_data.csv")
+```
+
+#### View NA Values
+
+```{r}
+colSums(is.na(sales_df))
+```
+
+#### Remove Outlier in Order.Total variable
+
+Since there are many NA values in Order.Total, I want to exclude NA values so that this data can be analyzed further. Then create new data frame `sales_df_cleaned`
+
+```{r}
+sales_df_cleaned <-  sales_df %>% 
+  drop_na(Order.Total)
+```
+
+#### Populate NA in Price with Order.Total/Quantity
+
+There are NA values within Price variable, where all the Items should have price for each items. So i want to aggregate the NA values with `Order.Total / Quantity`.
+
+```{r}
+sales_df_cleaned <-  sales_df_cleaned %>% 
+  mutate(Price = Order.Total / Quantity)
+```
+
+#### Check empty values in Item
+
+Besides NA, there are more empty values in Item variable.
+
+```{r}
+sales_df_cleaned %>% 
+  select(Item, Price) %>% 
+  distinct() %>% 
+  arrange(Price)
+```
+
+#### Populate empty value in Item based on Price
+
+I want to populate Item that has empty value based on Price that corresponds to the Item.
+
+```{r}
+sales_df_cleaned <-  sales_df_cleaned %>% 
+  select(Order.ID:Payment.Method) %>% 
+  mutate(Item = if_else(Item == "" & Price == 2.5, "Iced Tea", Item),
+         Item = if_else(Item == "" & Price == 15, "Grilled Chicken", Item),
+         Item = if_else(Item == "" & Price == 1, "Water", Item),
+         Item = if_else(Item == "" & Price == 3, "Lemonade", Item),
+         Item = if_else(Item == "" & Price == 4, "Garlic Bread", Item),
+         Item = if_else(Item == "" & Price == 5, "Ice Cream", Item),
+         Item = if_else(Item == "" & Price == 6, "Brownie", Item),
+         Item = if_else(Item == "" & Price == 7, "Cheesecake", Item),
+         Item = if_else(Item == "" & Price == 8, "Chicken Melt", Item),
+         Item = if_else(Item == "" & Price == 10, "Nachos Grande", Item),
+         Item = if_else(Item == "" & Price == 12, "Pasta Alfredo", Item),
+         Item = if_else(Item == "" & Price == 14, "Vegetarian Platter", Item),
+         Item = if_else(Item == "" & Price == 18, "Salmon", Item),
+         Item = if_else(Item == "" & Price == 20, "Steak", Item),
+         )
+```
+
+#### Populate empty values in Payment.Method with "Unknown"
+
+In `Payment.Method` there are empty value too. Since i lack of information of what the customers used to paid their orders, so i'll leave it with "Unknown".
+
+```{r}
+sales_df_cleaned <-  sales_df_cleaned %>% 
+  mutate(Payment.Method = if_else(Payment.Method == "", "Unknown", Payment.Method))
+```
+
+#### Change Order.Date format to date
+
+I realized the `Order.Date` variable had 'chr' class, so i changed it to 'Date'.
+
+```{r}
+sales_df_cleaned <-  sales_df_cleaned %>% 
+  mutate(Order.Date = as.Date(Order.Date))
+```
+
+#### Check timeline
+
+For additional information, i wanted to check the time range in this data, so i can see the trend line in further analysis.
+
+```{r}
+sales_df_cleaned %>% 
+  select(Order.Date) %>% 
+  summarise(MIN = min(Order.Date), MAX = max(Order.Date))
+```
+
+#### Export CSV
+
+Finally i export the final data as cleaned Data in CSV format.
+
+```{r}
+write.csv(sales_df_cleaned, "C:\\Users\\djoel\\Documents\\Data Analisis Bootcamp\\Project\\Data Cleaning\\R\\restaurant_sales.csv", row.names = FALSE)
+```
+
+#### Final Result ( Before - After)
+
+```{r}
+View(sales_df) # Before
+View(sales_df_cleaned) # After
+```
